@@ -76,7 +76,10 @@ app.get('/test', (req, res) => {
 app.post('/v1/chat/completions', async (req, res) => {
     try {
         const { messages, stream = false } = req.body;
-        const authToken = req.headers.authorization?.replace('Bearer ', '');
+        let authToken = req.headers.authorization?.replace('Bearer ', '');
+        if (authToken && authToken.includes('%3A%3A')) {
+            authToken = authToken.split('%3A%3A')[1];
+        }
         
         if (!messages || !Array.isArray(messages) || messages.length === 0 || !authToken) {
             return res.status(400).json({ 
