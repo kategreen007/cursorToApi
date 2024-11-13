@@ -76,7 +76,62 @@ app.get('/test', (req, res) => {
 });
 // OpenAI-style chat completions endpoint
 // ... existing code ...
+// ... existing code ...
 
+// Add model list endpoint before the chat completions endpoint
+app.get('/v1/models', (req, res) => {
+    const models = [
+        {
+            id: "claude-3.5-sonnet",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "gpt-4o",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "claude-3.5-sonnet-20241022",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "gpt-4o-mini",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "o1-mini",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "o1-preview",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        },
+        {
+            id: "cursor-small",
+            object: "model",
+            created: 1706745938,
+            owned_by: "cursor"
+        }
+    ];
+
+    res.json({
+        object: "list",
+        data: models
+    });
+});
+
+// ... existing code ...
 app.post('/v1/chat/completions', async (req, res) => {
     try {
         const { model,messages, stream = false } = req.body;
