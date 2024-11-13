@@ -66,7 +66,6 @@ function stringToHex(str,model_name) {
         "680070007A2436393337376535612D386332642D343835342D623564392D653062623232336163303061" +
         "800101B00100C00100E00100E80100"
     ).toUpperCase();
-    console.log(hexString);
     return Buffer.from(hexString, 'hex');
 }
 // 添加一个测试路由
