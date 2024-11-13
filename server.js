@@ -93,7 +93,7 @@ app.get('/v1/models', (req, res) => {
             owned_by: "cursor"
         },
         {
-            id: "claude-3.5-sonnet-20241022",
+            id: "claude-3-5-sonnet-20241022",
             object: "model",
             created: 1706745938,
             owned_by: "cursor"
@@ -150,8 +150,8 @@ app.post('/v1/chat/completions', async (req, res) => {
             res.setHeader('Connection', 'keep-alive');
         }
 
-        const lastMessage = messages[messages.length - 1];
-        const hexData = stringToHex(lastMessage.content,model);
+        const formattedMessages = messages.map(msg => `${msg.role}:${msg.content}`).join('\n');
+        const hexData = stringToHex(formattedMessages, model);
 
         const response = await fetch("https://api2.cursor.sh/aiserver.v1.AiService/StreamChat", {
             method: 'POST',
