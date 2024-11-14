@@ -129,12 +129,25 @@ app.get('/v1/models', (req, res) => {
         data: models
     });
 });
-
+// 添加一个全局变量来追踪当前使用的密钥索引
+let currentKeyIndex = 0;
 // ... existing code ...
 app.post('/v1/chat/completions', async (req, res) => {
     try {
         const { model,messages, stream = false } = req.body;
         let authToken = req.headers.authorization?.replace('Bearer ', '');
+        // 处理逗号分隔的密钥
+        const keys = authToken.split(',').map(key => key.trim());
+        if (keys.length > 0) {
+            // 确保 currentKeyIndex 不会越界
+            if (currentKeyIndex >= keys.length) {
+                currentKeyIndex = 0;
+            }
+            // 使用当前索引获取密钥
+            authToken = keys[currentKeyIndex];
+            // 更新索引
+            currentKeyIndex = (currentKeyIndex + 1);
+        }
         if (authToken && authToken.includes('%3A%3A')) {
             authToken = authToken.split('%3A%3A')[1];
         }
