@@ -6,6 +6,25 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
+# 检查并安装缺失的依赖
+echo "Checking and installing system dependencies..."
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    case "$ID" in
+        "alpine")
+            # Alpine Linux
+            apk add --no-cache openssl-dev
+            ;;
+        "ubuntu"|"debian")
+            # Ubuntu/Debian
+            apt-get update && apt-get install -y openssl libssl-dev
+            ;;
+        "centos"|"rhel"|"fedora")
+            # CentOS/RHEL/Fedora
+            dnf install -y openssl openssl-devel
+            ;;
+    esac
+fi
 
 # 安装依赖
 echo "Installing dependencies..."
