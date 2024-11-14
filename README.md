@@ -28,8 +28,8 @@
 1. 克隆项目
 git clone https://github.com/yourusername/cursorToApi.git
 cd cursorToApi
-2. 启动服务
-点击start.bat或者./start.sh
+3. 启动服务
+点击start.bat或者./start.sh(手机端可能需要先给权限：chmod 777 start.sh)
 
 
 ## 注意事项
