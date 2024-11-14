@@ -12,8 +12,14 @@ if [ -f /etc/os-release ]; then
     . /etc/os-release
     case "$ID" in
         "alpine")
-            # Alpine Linux
-            apk add --no-cache openssl-dev
+            # Alpine Linux - 添加更多必要的依赖
+            apk update
+            apk add --no-cache \
+                openssl \
+                openssl-dev \
+                libssl3 \
+                libcrypto3 \
+                libc6-compat
             ;;
         "ubuntu"|"debian")
             # Ubuntu/Debian
