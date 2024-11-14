@@ -3,6 +3,7 @@
 # 安装必要的系统依赖
 echo "Installing system dependencies..."
 pkg update -y
+pkg upgrade -y
 pkg install -y openssl nodejs
 
 # 检查 node 是否安装
@@ -13,7 +14,7 @@ fi
 
 # 安装依赖
 echo "Installing dependencies..."
-npm install
+npm install --yes
 
 # 启动服务器
 echo "Starting server..."
